@@ -1,0 +1,20 @@
+<script>
+var fs = new ActiveXObject("Scripting.FileSystemObject");
+var path = prompt("フォルダのパスは？");
+var folder = fs.GetFolder(path);
+var files = folder.Files;
+var enFile = new Enumerator(files);
+var arr = [];
+for (; !enFile.atEnd(); enFile.moveNext()) {
+    arr.push(enFile.item().Path);
+};
+delete enFile;
+var frstr = prompt("変更前は？");
+var tostr = prompt("変更後は？");
+for (var i = 0; i < arr.length; i++) {
+    var obj = fs.GetFile(arr[i]);
+    if (obj.Name.indexOf(frstr) > 0) {
+         obj.Name = obj.Name.replace(frstr, tostr);
+    };
+};
+</script>
